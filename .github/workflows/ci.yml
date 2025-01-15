@@ -27,6 +27,7 @@ jobs:
           ssh root@159.65.139.54 << EOF
             cd /var/www/todoapp
             git pull origin main
+            echo "DATABASE_URL=postgresql+psycopg2://postgres:12345678@db:5432/todo_db" > .env
             docker-compose down
             docker-compose pull
             docker-compose up -d

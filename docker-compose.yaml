@@ -4,8 +4,6 @@ services:
     image: richieieie/task_tracker_web
     ports:
       - "8000:80"
-    environment:
-      - DATABASE_URL=postgresql+psycopg2://postgres:12345678@db:5432/todo_db
     depends_on:
       - db
   db:

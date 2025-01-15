@@ -24,6 +24,7 @@ jobs:
       - name: SSH to the server and Redeploy
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}
+          ls /var/www
           ls /var/www/todo-app
           cd /var/www/todo-app
           git pull origin main

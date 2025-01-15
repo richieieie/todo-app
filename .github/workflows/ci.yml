@@ -1,0 +1,33 @@
+name: Deploy to VPS
+
+on:
+  workflow_run:
+    workflows: [ "Docker Image CI" ]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_SECRET_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 159.65.139.54 >> ~/.ssh/known_hosts
+
+      - name: Deploy with Docker Compose
+        run: |
+          ssh root@159.65.139.54 << EOF
+            cd /var/www/todoapp
+            git pull origin main
+            docker-compose down
+            docker-compose pull
+            docker-compose up -d
+          EOF

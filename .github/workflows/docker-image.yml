@@ -19,7 +19,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: richieieie/todoapp
+          images: richieieie/task_tracker_web
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:

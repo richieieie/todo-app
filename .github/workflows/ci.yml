@@ -15,13 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USERNAME }}
-          password: ${{ secrets.REMOTE_PRIVATE_KEY }}
-          port: ${{ secrets.REMOTE_PORT }}
-          script:
-            whoami
-            hostnamectl
+      - name: Get SSH key and set permissions
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.REMOTE_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+
+      - name: Copy file
+        run: scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r ./* ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}:/var/www/todoapp
+
+      - name: Restart the server
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}
+          echo "Success"

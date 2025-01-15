@@ -22,4 +22,6 @@ jobs:
           username: ${{ secrets.REMOTE_USERNAME }}
           password: ${{ secrets.REMOTE_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
-          script: whoami
+          script:
+            whoami
+            hostnamectl

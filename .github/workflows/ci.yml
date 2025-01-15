@@ -24,12 +24,12 @@ jobs:
       - name: SSH to the server and Redeploy
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}
-          cd /var/www/html
-          git pull origin main
-          echo "DATABASE_URL=${{ secrets.PG_URL }}" > .env
-          echo "POSTGRES_USER=${{ secrets.PG_USER }}" >> .env
-          echo "POSTGRES_PASSWORD=${{ secrets.PG_PASSWORD }}" >> .env
-          echo "POSTGRES_DB=${{ secrets.PG_DB }}" >> .env
-          docker compose build
-          docker compose up -d
+          ls -la /var/www/
+          #          git pull origin main
+          #          echo "DATABASE_URL=${{ secrets.PG_URL }}" > .env
+          #          echo "POSTGRES_USER=${{ secrets.PG_USER }}" >> .env
+          #          echo "POSTGRES_PASSWORD=${{ secrets.PG_PASSWORD }}" >> .env
+          #          echo "POSTGRES_DB=${{ secrets.PG_DB }}" >> .env
+          #          docker compose build
+          #          docker compose up -d
           exit

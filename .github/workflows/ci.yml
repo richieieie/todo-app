@@ -21,12 +21,10 @@ jobs:
           echo "${{ secrets.REMOTE_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Copy file
-        run: scp -i ~/.ssh/id_rsa -r ./* ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}:/var/www/todoapp
-
-      - name: Restart the server
+      - name: SSH to the server and Redeploy
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}
+          ls /var/www/todo-app
           cd /var/www/todo-app
           git pull origin main
           echo "DATABASE_URL=${{ secrets.PG_URL }}" > .env

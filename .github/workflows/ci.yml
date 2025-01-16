@@ -31,6 +31,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} << 'EOF'
             cd /var/www/todo-app/
             docker compose down
+            docker rmi richieieie/task_tracker_web:main
             echo "DATABASE_URL=${{ secrets.PG_URL }}" > .env
             echo "POSTGRES_USER=${{ secrets.PG_USER }}" >> .env
             echo "POSTGRES_PASSWORD=${{ secrets.PG_PASSWORD }}" >> .env

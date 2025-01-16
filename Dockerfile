@@ -12,5 +12,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY ./app /code/app
 
+EXPOSE 80
 
 CMD ["fastapi", "run", "app/main.py", "--port", "80", "--proxy-headers", "--forwarded-allow-ips=\"*\""]

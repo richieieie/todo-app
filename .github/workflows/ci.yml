@@ -26,6 +26,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} << 'EOF'
             ls -l /var/www/
             cd /var/www/todo-app/
+            docker compose down
             git pull origin main
             rm -f .env
             echo "DATABASE_URL=${{ secrets.PG_URL }}" > .env

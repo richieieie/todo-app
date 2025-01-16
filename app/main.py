@@ -1,12 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from starlette.staticfiles import StaticFiles
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 
 from .database import engine
 from .models import Base
 from .routers import todos, auth, admin, users
 
 app = FastAPI()
+
+app.add_middleware(ProxyHeadersMiddleware)
+
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"])
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

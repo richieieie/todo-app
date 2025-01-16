@@ -25,7 +25,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}
           ls -l /var/www/
-          cd /var/www/todo-app
+          cd /var/www/todo-app/
           git pull origin main
           echo "DATABASE_URL=${{ secrets.PG_URL }}" > .env
           echo "POSTGRES_USER=${{ secrets.PG_USER }}" >> .env

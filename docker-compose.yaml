@@ -1,7 +1,6 @@
 services:
   web_application:
-    build: .
-    image: richieieie/task_tracker_web
+    image: richieieie/task_tracker_web:main
     ports:
       - "8000:80"
     environment:

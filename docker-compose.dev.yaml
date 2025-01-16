@@ -1,0 +1,4 @@
+services:
+  web_application:
+    build: .
+    image: todoapp_development

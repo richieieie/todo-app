@@ -13,4 +13,4 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 COPY ./app /code/app
 
 
-CMD ["fastapi", "run", "app/main.py", "--port", "80", "--proxy-headers"]
+CMD ["fastapi", "run", "app/main.py", "--port", "80", "--proxy-headers", "--forwarded-allow-ips=\"*\""]

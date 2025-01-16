@@ -23,7 +23,7 @@ jobs:
 
       - name: Copy files docker files to the remote server
         run: |
-          scp -i ~/.ssh/id_rsa docker-compose.yaml .env ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}:/var/www/todo-app
+          scp -i ~/.ssh/id_rsa docker-compose.yaml ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}:/var/www/todo-app
       - name: SSH to the remote server and Redeploy
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} << 'EOF'

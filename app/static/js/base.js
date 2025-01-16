@@ -12,15 +12,21 @@ if (todoForm) {
             title: data.title,
             description: data.description,
             priority: parseInt(data.priority),
-            complete: false
+            completed: false
         };
 
         try {
-            const response = await fetch('/todos/', {
+            const token = getCookie('access_token');
+            if (!token) {
+                throw new Error('Authentication token not found');
+            }
+
+
+            const response = await fetch(`/todos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${getCookie('access_token')}`
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(payload)
             });

@@ -27,6 +27,7 @@ jobs:
             ls -l /var/www/
             cd /var/www/todo-app/
             git pull origin main
+            rm -f .env
             echo "DATABASE_URL=${{ secrets.PG_URL }}" > .env
             echo "POSTGRES_USER=${{ secrets.PG_USER }}" >> .env
             echo "POSTGRES_PASSWORD=${{ secrets.PG_PASSWORD }}" >> .env
@@ -34,4 +35,3 @@ jobs:
             docker compose build
             docker compose up -d
           EOF
-          exit

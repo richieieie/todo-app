@@ -2,7 +2,7 @@ services:
   web_application:
     image: richieieie/task_tracker_web:main
     ports:
-      - "8000:443"
+      - "8000:80"
     environment:
       - DATABASE_URL=${DATABASE_URL}
     depends_on:
